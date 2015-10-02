@@ -16,8 +16,7 @@ public class Client {
 	
 	public Client(){
 		try {
-			Socket socket = new Socket(SERVER_ADDRESS, server.ServerMain.PORTNUMER);
-			InputStream inputStream = socket.getInputStream();
+			Socket socket = new Socket(SERVER_ADDRESS, 110);
 			OutputStream outputStream = socket.getOutputStream();
 			PrintWriter writer = new PrintWriter(outputStream);
 			ServerThread ct = this.new ServerThread(socket.getInputStream());
@@ -100,7 +99,6 @@ public class Client {
 				if (!(e instanceof SocketException)){
 					e.printStackTrace();
 				}
-				// TODO Auto-generated catch block
 				
 			}
 		}

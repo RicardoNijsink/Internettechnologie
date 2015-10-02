@@ -150,7 +150,6 @@ public class Server extends ServerSocket {
 						model.removeClient(username);
 					}
 				}else{
-				e.printStackTrace();
 				}
 			}
 

@@ -35,6 +35,7 @@ public class Model {
 				}
 			}
 		} catch (ConcurrentModificationException e) {
+			e.printStackTrace();
 
 		}
 	}
