@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class User {
 	private String name;
 	private String password;
-	private ArrayList<Message> messages;
+	private ArrayList<Message> messages = new ArrayList<Message>();
 	private boolean isLocked = false;
 	
 	public User(String name, String password) {
 		this.name = name;
 		this.password = password;
+		messages.add(new Message("kaas.nl"));
 	}
 
 	public String getName() {

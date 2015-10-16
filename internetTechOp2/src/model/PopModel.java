@@ -5,6 +5,12 @@ import java.util.ArrayList;
 public class PopModel {
 	private ArrayList<User> users = new ArrayList<>();
 	
+	
+	
+	public PopModel() {
+		users.add(new User("ikke@kaas.com", "ikke"));
+	}
+
 	public void addUser(String name, String password) {
 		users.add(new User(name, password));
 	}
@@ -16,7 +22,7 @@ public class PopModel {
 	public User getUser(String name) {
 		User user = null;
 		for(User u : users){
-			if(u.getName() == name){
+			if(u.getName().equals(name)){
 				user = u;
 			}
 		}
