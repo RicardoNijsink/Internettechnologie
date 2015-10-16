@@ -72,5 +72,13 @@ public class User {
 			}
 		}
 	}
+	
+	public void unmark (){
+		for (Message m : messages){
+			if (m.isDeleted()){
+				m.unMark();
+			}
+		}
+	}
 
 }

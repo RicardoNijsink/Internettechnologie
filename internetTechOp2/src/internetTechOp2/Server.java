@@ -202,7 +202,12 @@ public class Server extends ServerSocket {
 							writer.println("-ERR nietes");
 							writer.flush();
 						}
-					}else{
+					}else if (input.equals("STAT")){
+						user.unmark();
+						writer.println("+OK "+ user.getMessageCount()+" "+ user.getTotalMessageLength());
+						writer.flush();
+					}
+					else{
 						writer.println("-ERR nietes");
 						writer.flush();
 					}

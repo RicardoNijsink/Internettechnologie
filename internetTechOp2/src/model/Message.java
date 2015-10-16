@@ -36,6 +36,10 @@ public class Message {
 		deleted=true;
 	}
 	
+	public void unMark(){
+		deleted=false;
+	}
+	
 	public boolean isDeleted(){
 		return deleted;
 	}
