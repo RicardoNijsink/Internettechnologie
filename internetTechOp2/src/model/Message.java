@@ -8,6 +8,8 @@ public class Message {
 	
 	private String message;
 	private int octets;
+	private boolean deleted;
+	
 	
 	public Message(String message, String from, String to, String subject, String date) {
 		this.from=from;
@@ -28,6 +30,14 @@ public class Message {
 	
 	public String getMessageHeader (){
 		return "Date: "+date+"\nFrom: "+from+"\nSubject: "+subject+"\nTo: "+to+"\nContent-Type: text/plain";
+	}
+	
+	public void delete(){
+		deleted=true;
+	}
+	
+	public boolean isDeleted(){
+		return deleted;
 	}
 
 }

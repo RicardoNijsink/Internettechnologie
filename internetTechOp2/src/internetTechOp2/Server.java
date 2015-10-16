@@ -159,6 +159,7 @@ public class Server extends ServerSocket {
 					if (input.equals("QUIT")) {
 						writer.println("+OK dewey POP3 server signing off");
 						writer.flush();
+						user.deleteMessages();
 						inTheLoop = false;
 					}else if (input.equals("STAT")){
 						System.out.println( user.getMessageCount());
@@ -178,10 +179,11 @@ public class Server extends ServerSocket {
 					}else if (input.contains("RETR")){
 						try{
 						int i = Integer.parseInt(input.substring(4).trim());
-						Message message = user.getMessage(i);
-						
+						Message message = user.getMessage(i-1);
+						System.out.println(message.getMessage());
 						writer.println("+OK "+ message.getLength()+ " octets");
 						writer.println(message.getMessageHeader());
+						writer.println("\n");
 						writer.println(message.getMessage());
 						writer.println(".");
 						writer.flush();
@@ -191,9 +193,18 @@ public class Server extends ServerSocket {
 							writer.flush();
 						}
 					}else if (input.contains("DELE")){
-						
+						try{
+							int i = Integer.parseInt(input.substring(4).trim());
+							user.getMessage(i-1).delete();
+							writer.println("+OK DELETED");
+							writer.flush();
+						}catch(NumberFormatException e){
+							writer.println("-ERR nietes");
+							writer.flush();
+						}
 					}else{
-						
+						writer.println("-ERR nietes");
+						writer.flush();
 					}
 				}else{
 					inTheLoop= false;

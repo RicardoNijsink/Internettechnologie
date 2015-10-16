@@ -17,6 +17,7 @@ public class User {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		messages.add(new Message("kaas.nl", "imand anders", "mij", "tset", dateFormat.format(date)));
+		messages.add(new Message("kaas.nl", "imand anders", "mij", "tset2", dateFormat.format(date)));
 	}
 
 	public String getName() {
@@ -62,6 +63,14 @@ public class User {
 	
 	public Message getMessage(int i){
 		return messages.get(i);
+	}
+	
+	public void deleteMessages(){
+		for (Message m : messages){
+			if (m.isDeleted()){
+				messages.remove(m);
+			}
+		}
 	}
 
 }
