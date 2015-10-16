@@ -101,8 +101,9 @@ public class Server extends ServerSocket {
 										if (Server.this.model.getUser(user).getPassword().equals(pass)){
 											writer.println("+OK welcome back");
 											writer.flush();
-											;
+											
 											this.user=Server.this.model.getUser(user);
+											this.user.lockUser();
 											TransactionState();
 										}else{
 											writer.println("-ERR pass incorrect");
@@ -175,12 +176,24 @@ public class Server extends ServerSocket {
 						writer.println(".");
 						writer.flush();
 					}else if (input.contains("RETR")){
+						try{
+						int i = Integer.parseInt(input.substring(4).trim());
+						Message message = user.getMessage(i);
 						
+						writer.println("+OK "+ message.getLength()+ " octets");
+						writer.println(message.getMessageHeader());
+						writer.println(message.getMessage());
+						writer.println(".");
+						writer.flush();
+						}
+						catch(NumberFormatException e){
+							writer.println("-ERR nietes");
+							writer.flush();
+						}
 					}else if (input.contains("DELE")){
 						
 					}else{
-						writer.println("-ERR nietes");
-						writer.flush();
+						
 					}
 				}else{
 					inTheLoop= false;

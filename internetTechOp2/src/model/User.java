@@ -1,6 +1,9 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User {
 	private String name;
@@ -11,7 +14,9 @@ public class User {
 	public User(String name, String password) {
 		this.name = name;
 		this.password = password;
-		messages.add(new Message("kaas.nl"));
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		messages.add(new Message("kaas.nl", "imand anders", "mij", "tset", dateFormat.format(date)));
 	}
 
 	public String getName() {
@@ -51,7 +56,12 @@ public class User {
 	}
 	
 	public void unlockUser() {
+		//TODO delete shit
 		this.isLocked = false;
+	}
+	
+	public Message getMessage(int i){
+		return messages.get(i);
 	}
 
 }
