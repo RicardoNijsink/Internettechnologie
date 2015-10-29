@@ -26,8 +26,13 @@ public class User {
 		this.password = password;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		messages.add(new Message("kaas.nl", "imand anders", "mij", "tset", dateFormat.format(date)));
-		messages.add(new Message("kaas.nl", "imand anders", "mij", "tset2", dateFormat.format(date)));
+		ArrayList<MessagePart> message1 = new ArrayList<>();
+		message1.add(new MessagePart("kaas.com"));
+		message1.add(new MessagePart("attachment", "attach.txt", MessagePart.PLAINTEXT));
+		messages.add(new Message(message1, "imand anders", "mij", "tset", dateFormat.format(date)));
+		ArrayList<MessagePart> message2 = new ArrayList<>();
+		message2.add(new MessagePart("kaas.com"));
+		messages.add(new Message(message2, "imand anders", "mij", "tset2", dateFormat.format(date)));
 	}
 
 	public String getName() {
@@ -106,11 +111,20 @@ public class User {
 	 * Methode voor het verwijderen van berichten die gemarkeerd zijn om verwijderd te worden
 	 */
 	public void deleteMessages(){
-		for (Message m : messages){
-			if (m.isDeleted()){
-				messages.remove(m);
+		int i = 0;
+		while (i<messages.size()) {
+			Message m=messages.get(i);
+			if (m.isDeleted()) {
+				messages.remove(i);
+			}else{
+				i++;
 			}
 		}
+//		for (Message m : messages){
+//			if (m.isDeleted()){
+//				messages.remove(m);
+//			}
+//		}
 	}
 	
 	/**

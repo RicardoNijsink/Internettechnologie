@@ -16,6 +16,7 @@ public class PopModel {
 	 */
 	public PopModel() {
 		users.add(new User("ikke@kaas.com", "ikke"));
+		users.add(new User("jij@kaas.com", "jij"));
 	}
 
 	public void addUser(String name, String password) {
