@@ -10,24 +10,42 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
+/**
+ * Class voor de afhandeling van de communicatie aan de serverkant
+ * @author Ricardo
+ *
+ */
 public class Server extends ServerSocket {
 
+	/**
+	 * Constructor van de server
+	 * @param port Het poortnummer van de poort waar de server draait
+	 * @param model Het model van de server
+	 * @throws IOException
+	 */
 	public Server(int port, Model model) throws IOException {
 		super(port);
 		while (true) {
 			Socket socket = this.accept();
-			//System.out.println("kaas");
 			ClientThread ct = new ClientThread(socket, model);
-			ct.start(); // start de thread en roept run() aan. Gebruik hier niet
-			// run(): dan wordt de code in de huidige thread gedraaid.
-
+			ct.start(); //Start de thread en roept run() aan.
 		}
 	}
 
+	/**
+	 * Thread voor het communiceren met de client
+	 * @author Ricardo
+	 *
+	 */
 	public class ClientThread extends Thread {
 		private Socket socket;
 		private Model model;
 
+		/**
+		 * Constructor van de clientthread
+		 * @param socket De socket waar de verbinding mee is gemaakt
+		 * @param model Het model van de server
+		 */
 		public ClientThread(Socket socket, Model model) {
 			this.socket = socket;
 			this.model = model;
@@ -38,43 +56,47 @@ public class Server extends ServerSocket {
 
 			String username = null;
 			try {
-				reader = new BufferedReader(new InputStreamReader(
-						socket.getInputStream()));
+				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				PrintWriter writer = new PrintWriter(socket.getOutputStream());
-				// checking if username is valid
+				//Checking if username is valid
 				boolean usernameAccepted = false;
-				while (!usernameAccepted) {
+				
+				while(!usernameAccepted){
 					username = reader.readLine();
 					boolean usernameInUse = false;
-					for (ClientInfo c : model.getClients()) {
-						if (c.getUsername().equals(username)) {
+					
+					for(ClientInfo c : model.getClients()){
+						if(c.getUsername().equals(username)){
 							usernameInUse = true;
 						}
 					}
-					if (!usernameInUse) {
+					
+					if(!usernameInUse){
 						usernameAccepted = true;
 						writer.println("1");
 						writer.flush();
-					} else {
+					}
+					else{
 						writer.println("0");
 						writer.flush();
 					}
 				}
-				if (username != null) {
+				if(username != null){
 					model.addClient(writer, username);
-					while (true) {
+					
+					while(true){
 						String line = reader.readLine();
-						if (line==null){
+						if(line == null){
 							SocketException e = new SocketException();
 							throw e;
 						}
 						Scanner in = new Scanner(line);
 
 						in.useDelimiter("\"");
-						if (in.hasNext()) {
+						if(in.hasNext()){
 							String premessage = in.next();
 
-							if (in.hasNext()) {
+							if(in.hasNext()){
 								String message = in.next();
 								while (in.hasNext()) {
 									message = message + "\"" + in.next();

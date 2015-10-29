@@ -3,6 +3,11 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * Class waarin de server en het bijbehorende model worden aangemaakt
+ * @author Ricardo
+ *
+ */
 public class ServerMain {
 	public static int PORTNUMER = 2000;
 
@@ -11,7 +16,6 @@ public class ServerMain {
 		try {
 			Server ontvangstsocket = new Server(PORTNUMER, model);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -10,6 +10,11 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
+/**
+ * Class voor de afhandeling van de communicatie aan de clientkant
+ * @author Ricardo
+ *
+ */
 public class Client {
 	private String SERVER_ADDRESS = "localhost"; 
 	private String username;
@@ -20,31 +25,31 @@ public class Client {
 			OutputStream outputStream = socket.getOutputStream();
 			PrintWriter writer = new PrintWriter(outputStream);
 			ServerThread ct = this.new ServerThread(socket.getInputStream());
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					socket.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			Scanner in = new Scanner(System.in);
 			
 			//kiezen van een username
 			System.out.println("enter username: ");
 			boolean usernameNotAccepted = true;
+			
 			while (usernameNotAccepted) {
 				username = in.nextLine();
-				if (username.contains("\"")) {
-					System.out
-							.println("username can not contain <\">, try again");
-				} else {
+				if(username.contains("\"")) {
+					System.out.println("username can not contain <\">, try again");
+				} 
+				else {
 					writer.println(username);
 					writer.flush();
 					String returnValue = reader.readLine();
-					if (returnValue.equals("1")){
+					if(returnValue.equals("1")){
 						usernameNotAccepted = false;
-					}else{
+					}
+					else{
 						System.out.println("username already taken");
 					}
-
 				}
-				
 			}
+			
 			ct.start();
 			System.out.println("your username = "+username);
 			System.out.println("to send a message put qoutes around it");
@@ -52,29 +57,32 @@ public class Client {
 			System.out.println("to log out type \"log out\"");
 			//start sending messages
 			boolean notStoped = true;
-			while (notStoped) {
+			
+			while(notStoped){
 				String input = in.nextLine();
-				if (input.equals("log out")) {
+				if(input.equals("log out")){
 					socket.close();
 					notStoped=false;
-				} else {
+				} 
+				else{
 					writer.println(" " + input);
 					writer.flush();
 				}
 			}
 
-		} catch (IOException e) {
-			if (e instanceof SocketException){
+		} catch(IOException e) {
+			if(e instanceof SocketException){
 				System.out.println("loged out");
-			}else{
+			}
+			else{
 			e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
-	 * houd de server in de gaten en print elke message die binnen komt
+	 * Thread voor het luisteren naar input.
+	 * Nadat er input is gegeven, wordt deze geprint.
 	 * @author auke
 	 *
 	 */
@@ -91,15 +99,14 @@ public class Client {
 			try {
 				reader = new BufferedReader(new InputStreamReader(
 						inputStream));
-				while (true) {
+				while(true) {
 					String line = reader.readLine();
 					System.out.println(line);
 				}
-			} catch (IOException e) {
+			} catch(IOException e) {
 				if (!(e instanceof SocketException)){
 					e.printStackTrace();
 				}
-				
 			}
 		}
 	}
