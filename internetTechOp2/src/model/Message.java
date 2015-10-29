@@ -13,16 +13,16 @@ public class Message {
 	private String subject;
 	private String to;
 	private ArrayList<MessagePart> message;
-	private int octets=0;
+	private int octets = 0;
 	private boolean deleted;
 	
 	/**
-	 * Constructor van een e-mailbericht
-	 * @param message De inhoud van het bericht
-	 * @param from De afzender van het bericht
-	 * @param to De ontvangen van het bericht
+	 * Constructor van een bericht
+	 * @param message De arraylist met de berichtdelen
+	 * @param from De verzender van het bericht
+	 * @param to De ontvanger van het bericht
 	 * @param subject Het onderwerp van het bericht
-	 * @param date De datum waarop het bericht is aangemaakt
+	 * @param date De datum van het bericht
 	 */
 	public Message(ArrayList<MessagePart> message, String from, String to, String subject, String date) {
 		this.from=from;
@@ -33,23 +33,17 @@ public class Message {
 		for (MessagePart m : message){
 			this.octets+=m.getMessage().getBytes().length;
 		}
-//		this.octets = message.getBytes().length;
 	}
 
+	/**
+	 * Methode voor het teruggeven van het bericht
+	 * @return Het bericht in String-formaat
+	 */
 	public String getMessage() {
 		 String returnString ="\nMIME-Version: 1.0\nContent-Type: multipart/mixed;\n	boundary=\"boundaryEmailElements\"\n\n";
 				for (MessagePart m : message){
 					returnString+=m;
 				}
-				
-//				+"--boundaryEmailElements\nContent-Type: text/plain\n\n"
-//				+message+"\n\n"+
-//				"--boundaryEmailElements\n"
-//				+"Content-Type: text/plain;\n"
-//				+"Content-Disposition: attachment;\n"
-//        		+"	filename= \"test.txt\"\n\n"
-//
-//				+ "this is the attachment text\n\n"
 
 				returnString+="--boundaryEmailElements--";
 				return returnString;

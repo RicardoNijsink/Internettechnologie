@@ -19,6 +19,11 @@ public class PopModel {
 		users.add(new User("jij@kaas.com", "jij"));
 	}
 
+	/**
+	 * Methode voor het toevoegen van een gebruiker
+	 * @param name De naam van de gebruiker
+	 * @param password Het wachtwoord van de gebruiker
+	 */
 	public void addUser(String name, String password) {
 		users.add(new User(name, password));
 	}

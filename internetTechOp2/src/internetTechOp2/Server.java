@@ -138,11 +138,8 @@ public class Server extends ServerSocket {
 												writer.println("-ERR username incorrect");
 												writer.flush();
 											}
-
 										}
 									}
-
-									// TODO rest
 								} else {
 									System.out.println("userempty");
 									writer.println("-ERR username is empty");
@@ -171,11 +168,8 @@ public class Server extends ServerSocket {
 			}
 			System.out.println("uit de lus");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Fout bij lezen");
 				}
-				
-				
 		}
 		
 		/**
@@ -261,7 +255,6 @@ public class Server extends ServerSocket {
 							running = false;
 							writer.println("-ERR signing off");
 							writer.flush();
-							
 						}
 					} else {
 						inTheLoop = false;
@@ -275,8 +268,7 @@ public class Server extends ServerSocket {
 			System.out.println("uit de lus");
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Fout bij lezen");
 			}	
 		}
 	}

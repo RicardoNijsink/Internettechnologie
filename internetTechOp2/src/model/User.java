@@ -26,13 +26,15 @@ public class User {
 		this.password = password;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
+		
 		ArrayList<MessagePart> message1 = new ArrayList<>();
 		message1.add(new MessagePart("kaas.com"));
 		message1.add(new MessagePart("attachment", "attach.txt", MessagePart.PLAINTEXT));
-		messages.add(new Message(message1, "imand anders", "mij", "tset", dateFormat.format(date)));
+		messages.add(new Message(message1, "iemand anders", "mij", "test", dateFormat.format(date)));
+		
 		ArrayList<MessagePart> message2 = new ArrayList<>();
 		message2.add(new MessagePart("kaas.com"));
-		messages.add(new Message(message2, "imand anders", "mij", "tset2", dateFormat.format(date)));
+		messages.add(new Message(message2, "iemand anders", "mij", "test2", dateFormat.format(date)));
 	}
 
 	public String getName() {
@@ -92,7 +94,6 @@ public class User {
 	 * Methode voor het unlocken van een gebruiker van de server
 	 */
 	public void unlockUser() {
-		//TODO delete shit
 		this.isLocked = false;
 	}
 	
@@ -120,11 +121,6 @@ public class User {
 				i++;
 			}
 		}
-//		for (Message m : messages){
-//			if (m.isDeleted()){
-//				messages.remove(m);
-//			}
-//		}
 	}
 	
 	/**
