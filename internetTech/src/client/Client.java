@@ -56,13 +56,13 @@ public class Client {
 			System.out.println("to send a private message put pm <usermame> in front of the message");
 			System.out.println("to log out type \"log out\"");
 			//start sending messages
-			boolean notStoped = true;
+			boolean notStopped = true;
 			
-			while(notStoped){
+			while(notStopped){
 				String input = in.nextLine();
 				if(input.equals("log out")){
 					socket.close();
-					notStoped=false;
+					notStopped=false;
 				} 
 				else{
 					writer.println(" " + input);
@@ -72,7 +72,7 @@ public class Client {
 
 		} catch(IOException e) {
 			if(e instanceof SocketException){
-				System.out.println("loged out");
+				System.out.println("logged out");
 			}
 			else{
 			e.printStackTrace();
@@ -90,15 +90,14 @@ public class Client {
 		private InputStream inputStream;
 
 		public ServerThread(InputStream inputStream) {
-			this.inputStream =inputStream;
+			this.inputStream = inputStream;
 		}
 
 		public void run() {
 			BufferedReader reader;
 
 			try {
-				reader = new BufferedReader(new InputStreamReader(
-						inputStream));
+				reader = new BufferedReader(new InputStreamReader(inputStream));
 				while(true) {
 					String line = reader.readLine();
 					System.out.println(line);
