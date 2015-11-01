@@ -52,7 +52,7 @@ public class Client {
 			
 			ct.start();
 			System.out.println("your username = "+username);
-			System.out.println("to send a message put qoutes around it");
+			System.out.println("to send a message put quotes around it");
 			System.out.println("to send a private message put pm <usermame> in front of the message");
 			System.out.println("to log out type \"log out\"");
 			//start sending messages

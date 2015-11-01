@@ -122,11 +122,11 @@ public class Server extends ServerSocket {
 											foundUser = true;
 											PrintWriter writer2 = c.getWriter();
 											writer2.println(username
-													+ " wispered to you: "
+													+ " whispered to you: "
 													+ message);
 											writer2.flush();
 
-											writer.println("you wispered to "
+											writer.println("you whispered to "
 													+ pmUsername + ": "
 													+ message);
 											writer.flush();
@@ -163,7 +163,7 @@ public class Server extends ServerSocket {
 
 					}
 				}else{
-					System.out.println("unreacheble code");
+					System.out.println("unreachable code");
 				}
 			} catch (IOException e) {
 				if (e instanceof SocketException){
